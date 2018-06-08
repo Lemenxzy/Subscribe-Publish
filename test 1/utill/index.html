@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+    <script src="index.js" type="text/javascript"></script>
+    <script>
+        const test = function (name, age) {
+            console.log("name:", name, 'age:', age)
+        };
+        const emitFn = function(callback) {
+            setTimeout(function () {
+                event.emit('test', 'zhiyuan', 25);
+                callback && callback();
+            },2000)
+        };
+        //订阅
+        event.on('test', test);
+        //发布
+        emitFn(function () {
+            //删除
+            setTimeout(function () {
+                event.remove('test', test);
+                //发布
+                emitFn();
+            }, 2000)
+        });
+
+    </script>
 </body>
 </html>
